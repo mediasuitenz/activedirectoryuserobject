@@ -1,0 +1,49 @@
+{
+  "name": "ldapuserobject",
+  "description": "Middleware to create a user object on req via data fetched from ldap",
+  "version": "0.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mediasuitenz/ldapuserobject.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mediasuitenz/ldapuserobject/issues"
+  },
+  "homepage": "https://github.com/mediasuitenz/ldapuserobject",
+  "author": {
+    "name": "Richard Walker",
+    "email": "digitalsadhu@gmail.com",
+    "url": "https://mediasuite.co.nz"
+  },
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "pretest": "npm run lint",
+    "test:ci": "mocha --ui mocha-given -R spec test",
+    "test:dev": "testem .",
+    "test": "npm run test:ci",
+    "prepublish": "npm test && npm prune"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "keywords": [
+    "ldap",
+    "user",
+    "middleware"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "expect": "^1.12.2",
+    "mocha": "^1.20.1",
+    "mocha-given": "^0.1.3",
+    "snazzy": "^2.0.1",
+    "standard": "^5.3.1",
+    "testem": "^0.9.8"
+  },
+  "peerDependencies": {}
+}
