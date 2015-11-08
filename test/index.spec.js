@@ -81,4 +81,15 @@ describe('activedirectoryuserobject middleware', () => {
     When(done => middleware(req, {}, done))
     Then(function () { expect(req.user.group).to.equal('group 1') })
   })
+
+  describe('called with 2 groups', () => {
+    Given(() => req = {username: 'sam'})
+    Given(() => options = {properties: {}})
+    Given(() => options.properties.groups = {values: ['group 1', 'group 2']})
+    Given(() => options.properties.departments = {values: ['dept 1', 'dept 2']})
+    When(() => middleware = activedirectoryuserobject(config, options))
+    When(done => middleware(req, {}, done))
+    Then(function () { expect(req.user.groups[0]).to.equal('group 1') })
+    Then(function () { expect(req.user.departments[0]).to.equal('dept 1') })
+  })
 })

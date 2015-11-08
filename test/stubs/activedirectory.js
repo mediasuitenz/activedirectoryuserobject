@@ -2,7 +2,7 @@
 
 const ldapGroups = {
   andrew: ['group 1', 'group 2'],
-  sam: ['group 1', 'group 3']
+  sam: ['group 1', 'group 3', 'dept 1']
 }
 
 class ActiveDirectory {
