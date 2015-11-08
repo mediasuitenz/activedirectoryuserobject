@@ -34,8 +34,9 @@ function ldapuserobject (config, options) {
       if (err) return next()
 
       Object.keys(opts.properties).forEach(key => {
-        req[opts.userObject][key] = groups.filter(group => opts.properties[key].indexOf(group) !== -1)
+        req[opts.userObject][key] = groups.filter(group => opts.properties[key].values.indexOf(group) !== -1)
         if (req[opts.userObject][key].length === 0) req[opts.userObject][key] = null
+        if (opts.properties[key].array === false) req[opts.userObject][key] = req[opts.userObject][key][0]
       })
 
       next()

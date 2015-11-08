@@ -50,7 +50,7 @@ describe('ldapuserobject middleware', () => {
 
   describe('called with 1 properties key and no matching groups', () => {
     Given(() => req = {username: 'andrew'})
-    Given(() => options = {properties: {groups: []}})
+    Given(() => options = {properties: {groups: {values: []}}})
     When(() => middleware = ldapuserobject(config, options))
     When(done => middleware(req, {}, done))
     Then(function () { expect(req.user.groups).to.be.null })
@@ -58,11 +58,27 @@ describe('ldapuserobject middleware', () => {
 
   describe('called with 1 properties key and 2 matching groups', () => {
     Given(() => req = {username: 'andrew'})
-    Given(() => options = {properties: {groups: ['group 1', 'group 2']}})
+    Given(() => options = {properties: {groups: {values: ['group 1', 'group 2']}}})
     When(() => middleware = ldapuserobject(config, options))
     When(done => middleware(req, {}, done))
-    Then(function () { expect(req.user.groups).to.be.an('array') })
     Then(function () { expect(req.user.groups.length).to.equal(2) })
     Then(function () { expect(req.user.groups[0]).to.equal('group 1') })
+  })
+
+  describe('called with 1 properties key and 1 matching group', () => {
+    Given(() => req = {username: 'sam'})
+    Given(() => options = {properties: {groups: {values: ['group 1', 'group 2']}}})
+    When(() => middleware = ldapuserobject(config, options))
+    When(done => middleware(req, {}, done))
+    Then(function () { expect(req.user.groups.length).to.equal(1) })
+    Then(function () { expect(req.user.groups[0]).to.equal('group 1') })
+  })
+
+  describe('expecting group to be a single value', () => {
+    Given(() => req = {username: 'sam'})
+    Given(() => options = {properties: {group: {values: ['group 1', 'group 2'], array: false}}})
+    When(() => middleware = ldapuserobject(config, options))
+    When(done => middleware(req, {}, done))
+    Then(function () { expect(req.user.group).to.equal('group 1') })
   })
 })
