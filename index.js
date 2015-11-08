@@ -15,9 +15,9 @@ const defaultOptions = {
   properties: {}
 }
 
-module.exports = ldapuserobject
+module.exports = activedirectoryuserobject
 
-function ldapuserobject (config, options) {
+function activedirectoryuserobject (config, options) {
   assert(config.url, messages.urlRequired)
   assert(config.baseDN, messages.baseDNRequired)
   assert(config.username, messages.usernameRequired)

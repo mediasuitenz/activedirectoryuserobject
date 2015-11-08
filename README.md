@@ -1,24 +1,24 @@
-# ldapuserobject
+# activedirectoryuserobject
 
 Middleware to create a user object on req via data fetched from active directory.
 
-[![NPM](https://nodei.co/npm/ldapuserobject.png?downloads=true&stars=true)](https://nodei.co/npm/ldapuserobject/)
+[![NPM](https://nodei.co/npm/activedirectoryuserobject.png?downloads=true&stars=true)](https://nodei.co/npm/activedirectoryuserobject/)
 
 [![Media Suite](http://mediasuite.co.nz/ms-badge.png)](http://mediasuite.co.nz)
 
-[![Build Status](https://travis-ci.org/mediasuitenz/ldapuserobject.svg)](https://travis-ci.org/mediasuitenz/ldapuserobject)
+[![Build Status](https://travis-ci.org/mediasuitenz/activedirectoryuserobject.svg)](https://travis-ci.org/mediasuitenz/activedirectoryuserobject)
 
 ## Installation
 
 ```
-npm install ldapuserobject --save
+npm install activedirectoryuserobject --save
 ```
 
 ## Explanation
 
 This middleware allows you to dynamically build a user object based on details fetched from active directory.
 
-You need to ensure that a username is set on the request before this middleware in the middleware chain. If you are running on iis server via iisnode, you can add [iisuser](https://www.npmjs.com/package/iisuser) to your middleware chain before ldapuserobject to have this done for you.
+You need to ensure that a username is set on the request before this middleware in the middleware chain. If you are running on iis server via iisnode, you can add [iisuser](https://www.npmjs.com/package/iisuser) to your middleware chain before activedirectoryuserobject to have this done for you.
 
 You can then configure the name of the username property on the request. (See below for more details)
 
@@ -42,7 +42,7 @@ app.use((req, res, next) => {
   req.username = 'jsmith'
   next()
 })
-app.use(ldapuserobject(config, options))
+app.use(activedirectoryuserobject(config, options))
 ```
 
 Assuming that the active directory lookup found that user `jsmith` belonged to several groups one of which was `group 1`, after this middleware has run, a user object will be set on the request that looks something like:
@@ -57,7 +57,7 @@ Assuming that the active directory lookup found that user `jsmith` belonged to s
 
 ## Configuration
 
-The first parameter to ldapuserobject object is an activedirectory connection configuration object. It accepts 4 properties, all of which are compulsory.
+The first parameter to activedirectoryuserobject object is an activedirectory connection configuration object. It accepts 4 properties, all of which are compulsory.
 
 ```js
 const config = {
@@ -70,11 +70,11 @@ const config = {
 
 ## Options
 
-The second parameter to ldapuserobject is an options object. This allows you to configure what groups get looked up in activedirectory for a user, where to find the username on the request, what to call the key for the object that will be set on the request by ldapuserobject and so on.
+The second parameter to activedirectoryuserobject is an options object. This allows you to configure what groups get looked up in activedirectory for a user, where to find the username on the request, what to call the key for the object that will be set on the request by activedirectoryuserobject and so on.
 
 ### userName
 
-You can specify which property on the request ldapuserobject should use to look for the username as follows:
+You can specify which property on the request activedirectoryuserobject should use to look for the username as follows:
 
 ```js
 const options = {
