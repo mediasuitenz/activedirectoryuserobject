@@ -6,7 +6,8 @@ const messages = {
   urlRequired: 'config.url required',
   baseDNRequired: 'config.baseDN required',
   usernameRequired: 'config.username required',
-  passwordRequired: 'config.password required'
+  passwordRequired: 'config.password required',
+  valuesRequired: 'properties.values required'
 }
 const defaultOptions = {
   userName: 'username',
@@ -34,6 +35,8 @@ function activedirectoryuserobject (config, options) {
       if (err) return next()
 
       Object.keys(opts.properties).forEach(key => {
+        assert(opts.properties[key].values, messages.valuesRequired)
+
         req[opts.userObject][key] = groups.filter(group => opts.properties[key].values.indexOf(group) !== -1)
         if (req[opts.userObject][key].length === 0) req[opts.userObject][key] = null
         if (opts.properties[key].array === false) req[opts.userObject][key] = req[opts.userObject][key][0]

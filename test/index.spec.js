@@ -10,7 +10,7 @@ const config = {
 }
 const adStub = require('./stubs/activedirectory')
 const activedirectoryuserobject = proxyquire('../index', {activedirectory: adStub})
-let req, middleware, options
+let req, middleware, options, next
 
 describe('activedirectoryuserobject middleware', () => {
   describe('called with no connection details', () => {
@@ -91,5 +91,12 @@ describe('activedirectoryuserobject middleware', () => {
     When(done => middleware(req, {}, done))
     Then(function () { expect(req.user.groups[0]).to.equal('group 1') })
     Then(function () { expect(req.user.departments[0]).to.equal('dept 1') })
+  })
+
+  describe('called with no value key on properties', () => {
+    Given(() => req = {username: 'sam'})
+    Given(() => next = () => {})
+    Given(() => options = {properties: {groups: {}}})
+    Then(function () { expect(activedirectoryuserobject(config, options).bind(this, req, {}, next)).to.throw(Error) })
   })
 })
