@@ -107,4 +107,14 @@ describe('activedirectoryuserobject middleware', () => {
     When(done => middleware(req, {}, done))
     Then(function () { expect(req.user.groups.length).to.equal(3) })
   })
+
+  describe('specifying caching for 1000 ms', () => {
+    Given(() => req = {username: 'sam'})
+    Given(() => options = {useCache: true, ttl: 1000, properties: {}})
+    Given(() => options.properties.groups = {values: ['group 1', 'group 2']})
+    When(() => middleware = activedirectoryuserobject(config, options))
+    When(done => middleware(req, {}, done))
+    When(done => middleware(req, {}, done))
+    Then(function () { expect(adStub.calledCount).to.equal(1) })
+  })
 })

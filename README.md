@@ -179,3 +179,14 @@ And the resulting object will look something like:
   groups: ['group 1'. 'group 2', 'group 3']
 }
 ```
+
+### Caching
+
+activedirectoryuserobject supports caching of user objects so that activedirectory is not hit on every request via a simple memory cache that will be wiped if you restart the server. Caching is disabled by default but can be enabled with the following options:
+
+```js
+const options = {
+  cache: true, // default false
+  ttl: 1000 // in milliseconds
+}
+```

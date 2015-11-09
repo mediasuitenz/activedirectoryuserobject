@@ -2,6 +2,7 @@
 const assert = require('assert')
 const merge = require('merge')
 const ActiveDirectory = require('activedirectory')
+const cache = require('memory-cache')
 const messages = {
   urlRequired: 'config.url required',
   baseDNRequired: 'config.baseDN required',
@@ -13,7 +14,8 @@ const defaultOptions = {
   userName: 'username',
   userObject: 'user',
   userObjectName: 'name',
-  properties: {}
+  properties: {},
+  useCache: false
 }
 
 module.exports = activedirectoryuserobject
@@ -28,6 +30,13 @@ function activedirectoryuserobject (config, options) {
   const ad = new ActiveDirectory(config)
 
   return function (req, res, next) {
+    if (opts.useCache) {
+      if (cache.get(req[opts.userName])) {
+        req[opts.userObject] = cache.get(req[opts.userName])
+        return next()
+      }
+    }
+
     req[opts.userObject] = {}
     req[opts.userObject][opts.userObjectName] = req[opts.userName]
 
@@ -45,6 +54,10 @@ function activedirectoryuserobject (config, options) {
         if (req[opts.userObject][key].length === 0) req[opts.userObject][key] = null
         if (opts.properties[key].array === false) req[opts.userObject][key] = req[opts.userObject][key][0]
       })
+
+      if (opts.useCache) {
+        cache.put(req[opts.userName], req[opts.userObject], opts.ttl)
+      }
 
       next()
     })

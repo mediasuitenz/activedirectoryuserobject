@@ -6,9 +6,14 @@ const ldapGroups = {
 }
 
 class ActiveDirectory {
+  constructor () {
+    ActiveDirectory.calledCount = 0
+  }
   getGroupMembershipForUser (username, cb) {
+    ActiveDirectory.calledCount++
     cb(null, ldapGroups[username])
   }
 }
+ActiveDirectory.calledCount = 0
 
 module.exports = ActiveDirectory
