@@ -107,7 +107,9 @@ This value defaults to `name`
 
 ### Properties
 
-The `properties` key allows you to set up any number of groups for the user allow with values to match on.
+The `properties` key allows you to set up any number of keyed groups for the user along with values to match on.
+
+A good example use case is roles. Perhaps you have a set of roles your application cares about such as `manager`, `admin` and `editor`. You could create a properties key called `roles` with `values` `['manager', 'admin', 'editor']` then if the user being checked belongs to the activedirectory group `editor` and `writer` only the group `editor` will be used in the final user object as one of the user's roles.
 
 In the following example, the key `groups` will be created, an activedirectory group query will be performed for the user and any groups found that match the values in the array `values` will be included.
 
@@ -119,7 +121,7 @@ const options = {
 }
 ```
 
-So if in active directoy the user belonged to groups `group 1` and `group 5` then the final object would look like:
+So if in active directory the user belonged to groups `group 1` and `group 5` then the final object would look like:
 
 ```js
 {
