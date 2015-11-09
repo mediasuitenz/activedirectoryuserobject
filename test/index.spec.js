@@ -99,4 +99,12 @@ describe('activedirectoryuserobject middleware', () => {
     Given(() => options = {properties: {groups: {}}})
     Then(function () { expect(activedirectoryuserobject(config, options).bind(this, req, {}, next)).to.throw(Error) })
   })
+
+  describe('called with value key of `all` should return all groups', () => {
+    Given(() => req = {username: 'sam'})
+    Given(() => options = {properties: {groups: {values: 'all'}}})
+    When(() => middleware = activedirectoryuserobject(config, options))
+    When(done => middleware(req, {}, done))
+    Then(function () { expect(req.user.groups.length).to.equal(3) })
+  })
 })

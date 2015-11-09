@@ -130,6 +130,8 @@ So if in active directory the user belonged to groups `group 1` and `group 5` th
 }
 ```
 
+#### Single values instead of array
+
 If are only looking to get back a single value, we can specify `array: false` in our configuration as follows.
 
 ```js
@@ -153,3 +155,27 @@ And the resulting object will look like:
 ```
 
 Note, the groups value in the above example will be the first matching group.
+
+#### Getting all activedirectory groups
+
+If you need all activedirectory groups to be returned, you can specify
+`values: 'all'` instead of an array of possible values as follows.
+
+```js
+const options = {
+  properties: {
+    groups: {
+      values: 'all'
+    }
+  }
+}
+```
+
+And the resulting object will look something like:
+
+```js
+{
+  name: 'jsmith',
+  groups: ['group 1'. 'group 2', 'group 3']
+}
+```

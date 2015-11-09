@@ -37,6 +37,10 @@ function activedirectoryuserobject (config, options) {
       Object.keys(opts.properties).forEach(key => {
         assert(opts.properties[key].values, messages.valuesRequired)
 
+        if (opts.properties[key].values === 'all') {
+          req[opts.userObject][key] = groups
+          return
+        }
         req[opts.userObject][key] = groups.filter(group => opts.properties[key].values.indexOf(group) !== -1)
         if (req[opts.userObject][key].length === 0) req[opts.userObject][key] = null
         if (opts.properties[key].array === false) req[opts.userObject][key] = req[opts.userObject][key][0]
