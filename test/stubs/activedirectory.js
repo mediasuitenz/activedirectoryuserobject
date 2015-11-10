@@ -1,8 +1,36 @@
 'use strict'
 
 const ldapGroups = {
-  andrew: ['group 1', 'group 2'],
-  sam: ['group 1', 'group 3', 'dept 1']
+  andrew: [
+    {
+      dn: 'CN=Group 1,CN=Users,DC=mediasuite,DC=local',
+      cn: 'group 1',
+      description: ''
+    },
+    {
+      dn: 'CN=Group 2,CN=Users,DC=mediasuite,DC=local',
+      cn: 'group 2'
+    },
+    {
+      dn: 'CN=Group 3,CN=Users,DC=mediasuite,DC=local',
+      cn: 'group 3'
+    }
+  ],
+  sam: [
+    {
+      dn: 'CN=Group 1,CN=Users,DC=mediasuite,DC=local',
+      cn: 'group 1',
+      description: ''
+    },
+    {
+      dn: 'CN=Group 3,CN=Users,DC=mediasuite,DC=local',
+      cn: 'group 3'
+    },
+    {
+      dn: 'CN=Dept 1,CN=Users,DC=mediasuite,DC=local',
+      cn: 'dept 1'
+    }
+  ]
 }
 
 class ActiveDirectory {

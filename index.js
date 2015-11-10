@@ -43,6 +43,10 @@ function activedirectoryuserobject (config, options) {
     ad.getGroupMembershipForUser(req[opts.userName], function (err, groups) {
       if (err) return next()
 
+      if (!opts.customParseFunction) {
+        groups = groups.map(group => group.cn)
+      }
+
       Object.keys(opts.properties).forEach(key => {
         assert(opts.properties[key].values, messages.valuesRequired)
 
