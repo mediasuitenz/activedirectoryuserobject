@@ -15,7 +15,8 @@ const defaultOptions = {
   userObject: 'user',
   userObjectName: 'name',
   properties: {},
-  useCache: false
+  useCache: false,
+  customParseFunction: null
 }
 
 module.exports = activedirectoryuserobject
@@ -43,20 +44,26 @@ function activedirectoryuserobject (config, options) {
     ad.getGroupMembershipForUser(req[opts.userName], function (err, groups) {
       if (err) return next()
 
-      if (!opts.customParseFunction) {
-        groups = groups.map(group => group.cn)
-      }
+      const defaultParsingFunction = group => group.cn
+      groups = groups.map(opts.customParseFunction || defaultParsingFunction)
 
       Object.keys(opts.properties).forEach(key => {
         assert(opts.properties[key].values, messages.valuesRequired)
 
-        if (opts.properties[key].values === 'all') {
-          req[opts.userObject][key] = groups
-          return
+        req[opts.userObject][key] = groups
+
+        const groupFilter = group => opts.properties[key].values.indexOf(group) !== -1
+        if (opts.properties[key].values !== 'all') {
+          req[opts.userObject][key] = groups.filter(groupFilter)
         }
-        req[opts.userObject][key] = groups.filter(group => opts.properties[key].values.indexOf(group) !== -1)
-        if (req[opts.userObject][key].length === 0) req[opts.userObject][key] = null
-        if (opts.properties[key].array === false) req[opts.userObject][key] = req[opts.userObject][key][0]
+
+        if (req[opts.userObject][key].length === 0) {
+          req[opts.userObject][key] = null
+        }
+
+        if (opts.properties[key].array === false) {
+          req[opts.userObject][key] = req[opts.userObject][key][0]
+        }
       })
 
       if (opts.useCache) {

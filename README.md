@@ -105,6 +105,29 @@ const options = {
 ```
 This value defaults to `name`
 
+### customParseFunction
+
+By default, the common name (`cn`) will be parsed out of active directory results and used.
+
+Eg. For each result in an array of activedirectory results, we grab the `cn` and throw away the rest.
+```js
+[{
+  dn: 'CN=Group 2,CN=Users,DC=mediasuite,DC=local',
+  cn: 'group 2'
+},
+...
+]
+```
+
+For other requirements, you can use `customParseFunction` to set a parsing function that will be called for each result returned from activedirectory. This function will be passed the whole result record and you should simply return a value as desired.
+
+Eg.
+```js
+const options = {
+  userObjectName: obj => obj.dn
+}
+```
+
 ### Properties
 
 The `properties` key allows you to set up any number of keyed groups for the user along with values to match on.

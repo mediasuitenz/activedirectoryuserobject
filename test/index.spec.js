@@ -108,6 +108,15 @@ describe('activedirectoryuserobject middleware', () => {
     Then(function () { expect(req.user.groups.length).to.equal(3) })
   })
 
+  describe('called with custom parse function', () => {
+    Given(() => req = {username: 'sam'})
+    Given(() => options = {properties: {groups: {values: 'all'}}})
+    Given(() => options.customParseFunction = obj => obj.dn)
+    When(() => middleware = activedirectoryuserobject(config, options))
+    When(done => middleware(req, {}, done))
+    Then(function () { expect(req.user.groups[0]).to.equal('CN=Group 1,CN=Users,DC=mediasuite,DC=local') })
+  })
+
   describe('specifying caching for 1000 ms', () => {
     Given(() => req = {username: 'sam'})
     Given(() => options = {useCache: true, ttl: 1000, properties: {}})
