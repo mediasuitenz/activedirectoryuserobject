@@ -44,6 +44,7 @@
   ],
   "dependencies": {
     "activedirectory": "^0.7.0",
+    "debug": "^2.2.0",
     "memory-cache": "^0.1.4",
     "merge": "^1.2.0"
   },

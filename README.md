@@ -213,3 +213,12 @@ const options = {
   ttl: 1000 // in milliseconds
 }
 ```
+
+### Debugging
+
+activedirectoryuserobject can output debugging information if desired.
+To turn debugging on use the environment variable `DEBUG=activedirectoryuserobject`
+On windows this can be set from the console like so:
+```
+set DEBUG=activedirectoryuserobject
+```
