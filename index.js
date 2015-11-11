@@ -29,7 +29,7 @@ function activedirectoryuserobject (config, options) {
   assert(config.password, messages.passwordRequired)
 
   const opts = merge(true, defaultOptions, options)
-  debug(`activedirectoryuserobject options object: ${JSON.stringify(options)}`)
+  debug(`activedirectoryuserobject options object: ${JSON.stringify(opts)}`)
 
   const ad = new ActiveDirectory(config)
   debug(`Connected to ActiveDirectory using credentials: ${JSON.stringify}`)
