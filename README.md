@@ -209,7 +209,7 @@ activedirectoryuserobject supports caching of user objects so that activedirecto
 
 ```js
 const options = {
-  cache: true, // default false
+  useCache: true, // default false
   ttl: 1000 // in milliseconds
 }
 ```
