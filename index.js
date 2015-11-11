@@ -32,7 +32,7 @@ function activedirectoryuserobject (config, options) {
   debug(`activedirectoryuserobject options object: ${JSON.stringify(opts)}`)
 
   const ad = new ActiveDirectory(config)
-  debug(`Connected to ActiveDirectory using credentials: ${JSON.stringify}`)
+  debug(`Connected to ActiveDirectory using credentials: ${JSON.stringify(config)}`)
 
   return function (req, res, next) {
     if (opts.useCache) {
