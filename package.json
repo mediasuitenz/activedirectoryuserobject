@@ -1,7 +1,7 @@
 {
   "name": "activedirectoryuserobject",
   "description": "Middleware to create a user object on req via data fetched from activedirectory",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "license": "MIT",
   "main": "index.js",
   "repository": {
