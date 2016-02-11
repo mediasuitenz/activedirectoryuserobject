@@ -74,7 +74,7 @@ function activedirectoryuserobject (config, options) {
           req[opts.userObject][key] = null
         }
 
-        if (opts.properties[key].array === false) {
+        if (opts.properties[key].array === false && Array.isArray(req[opts.userObject][key])) {
           debug(`Returning only first result for group '${key}':
             ${req[opts.userObject][key][0]}`)
           req[opts.userObject][key] = req[opts.userObject][key][0]
