@@ -62,11 +62,6 @@ function activedirectoryuserobject (config, options) {
 
         req[opts.userObject][key] = groups
 
-        const groupFilter = group => opts.properties[key].values.indexOf(group) !== -1
-        if (opts.properties[key].values !== 'all') {
-          req[opts.userObject][key] = groups.filter(groupFilter)
-        }
-
         const groupFilter = group => groups.indexOf(group) !== -1
         if (opts.properties[key].values !== 'all') {
           debug(`Filtering ${JSON.stringify(opts.properties[key].values)} to only groups that the user has, retaining order of passed-in groups.`)
